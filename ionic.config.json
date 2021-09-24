@@ -1,0 +1,7 @@
+{
+  "name": "TrashExchange",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
