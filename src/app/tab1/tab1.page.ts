@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { alertController } from '@ionic/core';
 
 
 @Component({
@@ -18,13 +19,14 @@ export class Tab1Page {
   items: Observable <any[]>;
   likedby: Observable <any[]>;
   userid = 4;
+  
+  //debug
+  data: { id: string; titel: string;}[];
 
   heartName = "heart-outline";
 
   constructor(private firestore:AngularFirestore) {
     this.items = firestore.collection('angebote').valueChanges();
-    this.likedby = firestore.collection('likedby').valueChanges();
-    
     this.userid = null ;
   }
 
