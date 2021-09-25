@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { saveConfig } from '@ionic/core';
 import { Observable } from 'rxjs';
-import { firebaseConfig } from 'src/environments/firebase';
 
 @Component({
   selector: 'app-tab1',
