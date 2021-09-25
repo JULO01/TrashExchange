@@ -1,7 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Modal</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end">            
+
       <ion-button (click)="dismissModal()">Close</ion-button>
     </ion-buttons>
 
@@ -10,24 +11,49 @@
 
 <ion-content>
   <div style="margin:1vh;">
-  <ion-item lines="none" class="textfield">
-    <ion-input placeholder="Titel" [(ngModel)]="title"></ion-input>
-  </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+            <ion-item lines="none" class="textfield" >
+            <ion-input placeholder="Titel" [(ngModel)]="title" style="width:100%;"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size ="3" style="margin-bottom: 1vh;">
+          <ion-input type="file" accept="image/*" id="fileinput" (input)='changeListener($event)' style="opacity:0; position:absolute;"></ion-input>
+          <ion-button for="fileinput" style="width:100%" >Upload</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row style="height:auto;">
+        <ion-col size=9>
+        <ion-item lines="none" class="textfield" style="height:100%; display:flex;" >
+          <ion-textarea style="position: absolute;" placeholder="Beschreibung" [(ngModel)]="description"></ion-textarea>
+        </ion-item>
+        </ion-col>
+      <ion-col size="3">
+        <ion-img id = "output"></ion-img>
+      </ion-col>
+      </ion-row>
 
-  <ion-item lines="none" class="textfield">
-    <ion-textarea placeholder="Beschreibung" [(ngModel)]="description"></ion-textarea>
-  </ion-item>
   
-  
-  
-  <ion-select interface="popover" multiple="true" placeholder="Tags">
+  <ion-row>
+    <ion-col size="12">
+      <ion-item class ="textfield" style="margin-top:1vh;">
+  <ion-select interface="popover" multiple="true" placeholder="Tags" >
     <ion-select-option>Tag1</ion-select-option>
     <ion-select-option>Tag2 </ion-select-option>
     <ion-select-option>Tag3 </ion-select-option>
   </ion-select>
+  </ion-item>
+</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-button expand="block" (click)="save()">Save</ion-button>
+    </ion-col>
+    
+  </ion-row>
   
 
-  <ion-button expand="block" slot="end" (click)="submit()">Save</ion-button>
-
+    </ion-grid>
   </div>
 </ion-content>
