@@ -11,24 +11,23 @@
 <ion-content>
   <div style="margin:1vh;">
   <ion-item lines="none" class="textfield">
-    <ion-input placeholder="Titel"></ion-input>
+    <ion-input placeholder="Titel" [(ngModel)]="title"></ion-input>
   </ion-item>
 
   <ion-item lines="none" class="textfield">
-    <ion-textarea placeholder="Beschreibung"></ion-textarea>
+    <ion-textarea placeholder="Beschreibung" [(ngModel)]="description"></ion-textarea>
   </ion-item>
   
-  <ion-chip>
-  <ion-input placeholder="Search for Tags"></ion-input>
-  <ion-icon name="search"></ion-icon>
-  </ion-chip>
+  
+  
+  <ion-select interface="popover" multiple="true" placeholder="Tags">
+    <ion-select-option>Tag1</ion-select-option>
+    <ion-select-option>Tag2 </ion-select-option>
+    <ion-select-option>Tag3 </ion-select-option>
+  </ion-select>
+  
 
-  <ion-chip>
-    <ion-icon name="pin" color="primary"></ion-icon>
-    <ion-label>Test</ion-label>
-    <ion-icon name="close" button (click)="dismissModal()"></ion-icon>
-    
-  </ion-chip>
+  <ion-button expand="block" slot="end" (click)="savetodb()">Save</ion-button>
 
   </div>
 </ion-content>
