@@ -35,10 +35,6 @@ export class TabsPage {
     modal.present();
   
   };
-
-  public close() {
-    this.modalController.dismiss();
-  }
   
 };  
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TabsPage } from '../tabs/tabs.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +8,13 @@ import { TabsPage } from '../tabs/tabs.page';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
   close () {
     console.log("test");
+    this.modalController.dismiss();
   }
 
 }
