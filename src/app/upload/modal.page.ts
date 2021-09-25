@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { testUserAgent } from '@ionic/core/dist/types/utils/platform';
 
 @Component({
   selector: 'app-modal',
@@ -9,12 +10,14 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ModalPage implements OnInit {
 
-  items: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
-    this.items = firestore.collection('angebote').valueChanges();
+
+  constructor() {
+    
   }
 
   ngOnInit() {
+
+    
   }
 
 }
