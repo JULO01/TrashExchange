@@ -28,20 +28,40 @@ export class ModalPage implements OnInit {
     this.modalController.dismiss();
   }
 
+
+  file = null;
   async save(){
+    console.log("save");
     if(this.title!= "" && this.description != ""){
-    this.appService.addAngebote(this.name,this.title,this.description,this.location)
-    this.dismissModal();
+      var url;
+      if(this.file!=null){
+          url = await this.appService.addImage(this.file);
+          console.log("yes");
+          this.appService.addAngebote(this.name,this.title,this.description,this.location, url);
+          this.dismissModal();
+          }
+           
+        
+      }
+      else{
+         url = "";
+        console.log("NO");
+        this.appService.addAngebote(this.name,this.title,this.description,this.location, url)
+        this.dismissModal();
+      
+      }
     }
-  }
+  
 
   
-  file:File;
+  
   async changeListener(e){
+    
     var image = document.getElementById("output") as HTMLImageElement;
     this.file = e.target.files[0];
     image.src = URL.createObjectURL(this.file);
-    this.appService.addImage(this.file);
+    
+    
     
   }
   

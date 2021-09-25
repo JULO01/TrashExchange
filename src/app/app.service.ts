@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageModule, GetDownloadURLPipe} from '@angular/fire/compat/storage'
 import { AngularFireModule } from '@angular/fire/compat';
 import {finalize} from 'rxjs/operators'
@@ -17,7 +17,7 @@ export class AppService {
     // })
     this.items = firestore.collection('angebote').valueChanges();
   } 
-  public addAngebote(usertmp:String,titeltmp:String, beschreibungtmp:String, orttmp:String){
+  public addAngebote(usertmp:String,titeltmp:String, beschreibungtmp:String, orttmp:String, url:String){
     const id = this.firestore.createId();
     const time = new Date().getTime();
     return this.firestore.doc(`angebote/${id}`).set({
@@ -27,19 +27,30 @@ export class AppService {
       beschreibung:beschreibungtmp,
       ort:orttmp,
       zeit:time,
-
+      url:url
 
     });
   
   }
-  public addImage(image){
-    var path = "img2.jpg";
+  public async addImage(image){
+    
+    var path = image.name;
+    
     var task = this.storage.upload(path,image);
-    var url;
+    var url_string;
     var ref = this.storage.ref(path)
-    task.snapshotChanges().pipe(
-      finalize(() => url = ref.getDownloadURL() )
-   )
+    return new Promise((resolve,reject) => {
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          ref.getDownloadURL().subscribe(url => {
+            resolve(url);
+            console.log(url);
+            // <-- do what ever you want with the url..
+          });
+        })
+      ).subscribe();
+    });
+    
   }
   
 }
