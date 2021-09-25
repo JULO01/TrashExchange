@@ -1,17 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Your Trash
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+    <ion-card *ngFor ="let item of items | async">
+      <ion-card-header>
+        <ion-card-subtitle>{{item.ort}}</ion-card-subtitle>
+        <ion-card-title> {{item.titel}} 
+          <ion-button (click) = "changeState()" fill = "clear" style="float: right;">
+            <ion-icon style="float: right; vertical-align: top;" [name]="heartName"></ion-icon> 
+          </ion-button>
+        </ion-card-title>
+      </ion-card-header> 
+    </ion-card>
+  </ion-list>
 </ion-content>
