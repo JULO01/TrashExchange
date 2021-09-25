@@ -18,7 +18,6 @@ export class Tab1Page {
   items: Observable <any[]>;
   likedby: Observable <any[]>;
   userid = 4;
-  //userid: Observable <any[]>;
 
   heartName = "heart-outline";
 
@@ -26,26 +25,9 @@ export class Tab1Page {
     this.items = firestore.collection('angebote').valueChanges();
     this.likedby = firestore.collection('likedby').valueChanges();
     
-    //debug
-    
-
-    //debug
-    
     this.userid = null ;
   }
 
-
-  async hasLiked(documentId:string){
-    const hasLiked = await this.firestore.collection('angebote').doc(documentId).collection('likedby').ref.where('userid', '==', this.userid);
-    return hasLiked?"heart":"heart-outline";
-
-  }
-
-  heartButtonPushed(itemId){
-  
-    
-  }
-  
 
   changeState(){ 
     
