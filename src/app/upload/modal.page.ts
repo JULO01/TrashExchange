@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-
+import { AppService } from '../app.service';
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.page.html',
@@ -9,12 +8,15 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ModalPage implements OnInit {
 
-  items: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
-    this.items = firestore.collection('angebote').valueChanges();
-  }
+  constructor(private modalController: ModalController,private appService:AppService) { }
 
   ngOnInit() {
+
+    this.appService.addAngebote("test1","test2","test3","test4","test5",)
+  }
+
+  async dismissModal(){
+    this.modalController.dismiss();
   }
 
 }

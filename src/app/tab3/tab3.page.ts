@@ -23,4 +23,5 @@ export class Tab3Page {
     this.items = firestore.collection('angebote').valueChanges();
   }
 
+  
 }

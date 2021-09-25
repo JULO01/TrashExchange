@@ -1,13 +1,34 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Modal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ul>
-    <li class="text" *ngFor="let item of items | async">
-      {{item.text}}
-    </li>
-  </ul>
+  <div style="margin:1vh;">
+  <ion-item lines="none" class="textfield">
+    <ion-input placeholder="Titel"></ion-input>
+  </ion-item>
+
+  <ion-item lines="none" class="textfield">
+    <ion-textarea placeholder="Beschreibung"></ion-textarea>
+  </ion-item>
+  
+  <ion-chip>
+  <ion-input placeholder="Search for Tags"></ion-input>
+  <ion-icon name="search"></ion-icon>
+  </ion-chip>
+
+  <ion-chip>
+    <ion-icon name="pin" color="primary"></ion-icon>
+    <ion-label>Test</ion-label>
+    <ion-icon name="close" button (click)="dismissModal()"></ion-icon>
+    
+  </ion-chip>
+
+  </div>
 </ion-content>

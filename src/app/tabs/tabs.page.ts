@@ -9,7 +9,7 @@ import { ModalPage } from '../upload/modal.page';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-  uploadModal: Object;
+  
   constructor(private modalController: ModalController) {
     this.login()
     
@@ -17,7 +17,9 @@ export class TabsPage {
 
   async login() {
     const modal = await this.modalController.create({
-      component: LoginPage
+      component: LoginPage,
+      backdropDismiss:false,
+      
     });
 
 
@@ -30,13 +32,18 @@ export class TabsPage {
     
     const uploadModal = await this.modalController.create({
       component: ModalPage,
+      id:"upload",
+      swipeToClose:true,
+      animated:true,
+
     });
 
-    uploadModal.present();
-  } ;
-  async dismissUploadModal(){
+    await uploadModal.present();
     
-  }
+  } ;
+
+  
+  
   
 };  
 
