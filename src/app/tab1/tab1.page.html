@@ -13,5 +13,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Content"></app-explore-container>
+  <ion-card *ngFor="let item of items | async">
+    <ion-card-header>
+      <ion-card-subtitle>{{item.location}}</ion-card-subtitle>
+      <ion-card-title>{{item.title}}</ion-card-title>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{item.text}}
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>
