@@ -15,7 +15,9 @@ export class ModalPage implements OnInit {
   location="Not yet implemented";
 
 
-  constructor(private modalController: ModalController,private appService:AppService) { }
+  constructor(private modalController: ModalController,private appService:AppService) { 
+
+  }
 
   ngOnInit() {
 
@@ -26,10 +28,23 @@ export class ModalPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  async submit(){
+  async save(){
+    if(this.title!= "" && this.description != ""){
     this.appService.addAngebote(this.name,this.title,this.description,this.location)
+    this.dismissModal();
+    }
   }
 
+  
+  file:File;
+  async changeListener(e){
+    var image = document.getElementById("output") as HTMLImageElement;
+    this.file = e.target.files[0];
+    image.src = URL.createObjectURL(this.file);
+    this.appService.addImage(this.file);
+    
+  }
+  
   
     
   
