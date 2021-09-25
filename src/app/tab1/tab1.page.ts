@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-
+import { Component, ViewChild } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { saveConfig } from '@ionic/core';
 import { Observable } from 'rxjs';
+import { alertController } from '@ionic/core';
 
 
 @Component({
@@ -12,26 +10,51 @@ import { Observable } from 'rxjs';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+
+
 export class Tab1Page {
-  items: Observable<any[]>;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
+
+  items: Observable <any>;
+  userid = 4;
   
+  //debug
+  data: { id: string; titel: string;}[];
 
+  heartName = "heart-outline";
 
-  uid: string;
-
-  constructor(public auth: AngularFireAuth,firestore: AngularFirestore) {
-    this.grabuid();
+  constructor(private firestore:AngularFirestore) {
     this.items = firestore.collection('angebote').valueChanges();
-    // Hier ist die UID nicht aufrufbar
-  }
+    
+    this.data;
 
-  async grabuid() {
-    this.auth.user.subscribe(user => {
-      this.uid = user.uid;
+    this.items.subscribe(res => {
+      this.data = res[0].ort;
+      console.log(this.data)
 
-      // Hier den eigentlichen init code laufen lassen (uid verfügbar)
     })
+    
+    
+    this.userid = null ;
   }
+
+
+
+
+  changeState(item){ 
+    
+    if (item.liked){
+      item.liked = false;
+    }
+    else{
+      item.liked = true;
+    }
+    
+    console.log(item.liked);
+    this.firestore.collection('angebote').doc(item.id).update(item);
+  }
+
 
 
 
