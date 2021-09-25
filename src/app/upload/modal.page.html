@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Modal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div style="margin:1vh;">
+  <ion-item lines="none" class="textfield">
+    <ion-input placeholder="Titel" [(ngModel)]="title"></ion-input>
+  </ion-item>
 
+  <ion-item lines="none" class="textfield">
+    <ion-textarea placeholder="Beschreibung" [(ngModel)]="description"></ion-textarea>
+  </ion-item>
+  
+  
+  
+  <ion-select interface="popover" multiple="true" placeholder="Tags">
+    <ion-select-option>Tag1</ion-select-option>
+    <ion-select-option>Tag2 </ion-select-option>
+    <ion-select-option>Tag3 </ion-select-option>
+  </ion-select>
+  
+
+  <ion-button expand="block" slot="end" (click)="submit()">Save</ion-button>
+
+  </div>
 </ion-content>

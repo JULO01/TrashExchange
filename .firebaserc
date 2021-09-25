@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "trashxchange-2fd99": {
+      "hosting": {
+        "app": [
+          "trashxchange-2fd99"
+        ]
+      }
+    }
+  }
+}
