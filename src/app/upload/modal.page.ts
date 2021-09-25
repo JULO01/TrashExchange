@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { ModalController } from '@ionic/angular';
-import { PopoverController } from '@ionic/angular';
-import { PopoverComponent } from './popover/popover.component';
+
 
 @Component({
   selector: 'app-modal',
@@ -10,16 +9,25 @@ import { PopoverComponent } from './popover/popover.component';
   styleUrls: ['./modal.page.scss'],
 })
 export class ModalPage implements OnInit {
+  name="Jan";
+  title="";
+  description="";
+  location="Not yet implemented";
+
 
   constructor(private modalController: ModalController,private appService:AppService) { }
 
   ngOnInit() {
 
-    this.appService.addAngebote("test1","test2","test3","test4","test5",)
+    
   }
 
   async dismissModal(){
     this.modalController.dismiss();
+  }
+
+  async submit(){
+    this.appService.addAngebote(this.name,this.title,this.description,this.location)
   }
 
   

@@ -11,15 +11,16 @@ export class AppService {
   constructor(private firestore: AngularFirestore) {
     this.items = firestore.collection('angebote').valueChanges();
   } 
-  public addAngebote(usertmp:String,titeltmp:String, beschreibungtmp:String, orttmp:String, zeittmp:String){
+  public addAngebote(usertmp:String,titeltmp:String, beschreibungtmp:String, orttmp:String){
     const id = this.firestore.createId();
+    const time = new Date().getTime();
     return this.firestore.doc(`angebote/${id}`).set({
       id: id,
       userid:usertmp,
       titel: titeltmp,
       beschreibung:beschreibungtmp,
       ort:orttmp,
-      zeit:zeittmp,
+      zeit:time,
 
     });
 
