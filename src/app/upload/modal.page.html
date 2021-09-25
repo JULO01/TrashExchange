@@ -5,5 +5,9 @@
 </ion-header>
 
 <ion-content>
-
+  <ul>
+    <li class="text" *ngFor="let item of items | async">
+      {{item.text}}
+    </li>
+  </ul>
 </ion-content>

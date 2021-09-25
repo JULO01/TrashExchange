@@ -33,7 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  declarations: [LoginPage],
-  entryComponents: [LoginPage],
+  // declarations: [LoginPage],
+  // entryComponents: [LoginPage],
 })
 export class TabsPageRoutingModule {}
