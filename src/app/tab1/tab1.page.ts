@@ -16,8 +16,7 @@ export class Tab1Page {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
 
-  items: Observable <any[]>;
-  likedby: Observable <any[]>;
+  items: Observable <any>;
   userid = 4;
   
   //debug
@@ -27,18 +26,33 @@ export class Tab1Page {
 
   constructor(private firestore:AngularFirestore) {
     this.items = firestore.collection('angebote').valueChanges();
+    
+    this.data;
+
+    this.items.subscribe(res => {
+      this.data = res[0].ort;
+      console.log(this.data)
+
+    })
+    
+    
     this.userid = null ;
   }
 
 
-  changeState(){ 
+
+
+  changeState(item){ 
     
-    if (this.heartName == "heart-outline"){
-      this.heartName = "heart"
+    if (item.liked){
+      item.liked = false;
     }
     else{
-      this.heartName = "heart-outline"
+      item.liked = true;
     }
+    
+    console.log(item.liked);
+    this.firestore.collection('angebote').doc(item.id).update(item);
   }
 
 
