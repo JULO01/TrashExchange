@@ -31,8 +31,7 @@ export class TabsPage {
       backdropDismiss:false,
       
     });
-
-
+    
     await modal.present();
   }
 

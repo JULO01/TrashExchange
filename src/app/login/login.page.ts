@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { RegisterPage } from '../register/register.page';
+import { modalController } from '@ionic/core';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +24,17 @@ export class LoginPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  async register(){
+    this.modalController.dismiss();
+    var modalController  : ModalController;
+    const modal = await this.modalController.create({
+      component: RegisterPage,
+    });
+    modal.present();
+  
+  };
+
+
   signinGoogle() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then((userCredential) => {
@@ -39,13 +52,13 @@ export class LoginPage implements OnInit {
 
 
   signin() {
-    
-    this.auth.signInWithEmailAndPassword("sda23afsaf@gmail.com", "123456")
+    // demo acc: sda23afsaf@gmail.com, 123456
+    this.auth.signInWithEmailAndPassword(this.email, this.password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       console.log(user);
-      this.closeModal();
+      this.modalController.dismiss();
       // ...
     })
   .catch((error) => {
