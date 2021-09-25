@@ -37,7 +37,7 @@ export class ModalPage implements OnInit {
       event:ev,
       component:PopoverComponent,
       showBackdrop:false,
-      backdropDismiss:true
+      
     });
     await popover.present();
   }
