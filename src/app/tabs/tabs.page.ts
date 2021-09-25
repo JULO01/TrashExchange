@@ -17,7 +17,9 @@ export class TabsPage {
 
   async login() {
     const modal = await this.modalController.create({
-      component: LoginPage
+      component: LoginPage,
+      backdropDismiss:false,
+      
     });
 
 
