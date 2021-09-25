@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -18,9 +19,13 @@ export class Tab3Page {
   //items = funktion(datenbank)
   //
   items: Observable <any[]>;
+  userid="";
 
-  constructor(firestore:AngularFirestore) {
-    this.items = firestore.collection('angebote').valueChanges();
+  constructor(firestore:AngularFirestore, private auth:AngularFireAuth) {
+    this.auth.user.subscribe(user => {
+      this.userid = user.uid;
+      this.items = firestore.collection('angebote').valueChanges();
+    });
   }
 
   
