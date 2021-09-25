@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -16,7 +17,8 @@ import { firebaseConfig } from 'src/environments/firebase';
   declarations: [AppComponent],
   entryComponents: [],
 
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ModalPageModule,AngularFireModule.initializeApp(firebaseConfig)],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ModalPageModule,AngularFireModule.initializeApp(firebaseConfig), AngularFireStorageModule],
+
 
 
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
