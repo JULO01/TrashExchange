@@ -1,6 +1,10 @@
 /node_modules
+/www
 node_modules
 package.json
 package-lock.json
+
+/src/environments/firebase.ts
 /www
-/environments/firebase.ts
+/.firebase
+

@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
+
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { saveConfig } from '@ionic/core';
+import { Observable } from 'rxjs';
+import { firebaseConfig } from 'src/environments/firebase';
+
 
 @Component({
   selector: 'app-tab1',
@@ -8,10 +15,12 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class Tab1Page {
 
+
   uid: string;
 
-  constructor(public auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth,firestore: AngularFirestore) {
     this.grabuid();
+    this.items = firestore.collection('angebote').valueChanges();
     // Hier ist die UID nicht aufrufbar
   }
 
@@ -22,6 +31,7 @@ export class Tab1Page {
       // Hier den eigentlichen init code laufen lassen (uid verfügbar)
     })
   }
+
 
 
 }

@@ -1,8 +1,10 @@
 import { Component, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LoginPage } from '../login/login.page';
+
 import { ModalPage } from '../modal/modal.page';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 @Component({
   selector: 'app-tabs',
@@ -10,7 +12,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['tabs.page.scss']
 })
 
-@Injectable()
+
+
 export class TabsPage {
   public uid: string = "";
 
@@ -22,6 +25,7 @@ export class TabsPage {
         this.login();
       }
     })
+
   }
 
 
@@ -35,15 +39,23 @@ export class TabsPage {
     await modal.present();
   }
 
-  async loadModal(){
-    console.log("test");
-    var modalController  : ModalController;
-    const modal = await this.modalController.create({
+  
+  async loadUploadModal(){
+    
+    
+    const uploadModal = await this.modalController.create({
       component: ModalPage,
+      id:"upload",
+      swipeToClose:true,
+      animated:true,
+
     });
 
-    modal.present();
+    await uploadModal.present();
+    
+  } ;
+
   
-  };
+  
   
 };
