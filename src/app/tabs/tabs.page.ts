@@ -16,7 +16,9 @@ export class TabsPage {
 
   async login() {
     const modal = await this.modalController.create({
-      component: LoginPage
+      component: LoginPage,
+      backdropDismiss:false,
+      
     });
 
 
@@ -32,7 +34,11 @@ export class TabsPage {
 
     modal.present();
   
-  } ;
+  };
+
+  public close() {
+    this.modalController.dismiss();
+  }
   
 };  
 
