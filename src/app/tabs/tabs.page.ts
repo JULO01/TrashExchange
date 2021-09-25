@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LoginPage } from '../login/login.page';
-import { ModalPage } from '../modal/modal.page';
+import { ModalPage } from '../upload/modal.page';
 
 @Component({
   selector: 'app-tabs',
@@ -9,9 +9,10 @@ import { ModalPage } from '../modal/modal.page';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
+  uploadModal: Object;
   constructor(private modalController: ModalController) {
     this.login()
+    
   }
 
   async login() {
@@ -23,16 +24,19 @@ export class TabsPage {
     await modal.present();
   }
 
-  async loadModal(){
-    console.log("test");
-    var modalController  : ModalController;
-    const modal = await this.modalController.create({
+  
+  async loadUploadModal(){
+    
+    
+    const uploadModal = await this.modalController.create({
       component: ModalPage,
     });
 
-    modal.present();
-  
+    uploadModal.present();
   } ;
+  async dismissUploadModal(){
+    
+  }
   
 };  
 
