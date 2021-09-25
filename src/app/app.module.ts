@@ -10,10 +10,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalPageModule } from './upload/modal.module';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { firebaseConfig } from 'src/environments/firebase';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
+
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ModalPageModule,AngularFireModule.initializeApp(firebaseConfig), AngularFireStorageModule],
+
+
 
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
