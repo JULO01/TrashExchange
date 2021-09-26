@@ -3,6 +3,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { alertController } from '@ionic/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -17,26 +18,32 @@ export class Tab1Page {
 
 
   items: Observable <any>;
-  userid = 4;
+  userid = "4";
   
   //debug
   data: { id: string; titel: string;}[];
 
   heartName = "heart-outline";
 
-  constructor(private firestore:AngularFirestore) {
-    this.items = firestore.collection('angebote').valueChanges();
+  constructor(private firestore:AngularFirestore, private auth:AngularFireAuth) {
+    this.auth.user.subscribe(user => {
+      this.items = firestore.collection('angebote').valueChanges();
     
     this.data;
+    this.userid = user.uid ;
 
     this.items.subscribe(res => {
-      this.data = res[0].ort;
-      console.log(this.data)
+      for(var i=0; i<res.length; i++) {
+        console.log(res[i].userid)
+        this.data = res[i].ort;
+        console.log(this.data)
+      }
 
     })
     
     
-    this.userid = null ;
+    
+    })
   }
 
 
