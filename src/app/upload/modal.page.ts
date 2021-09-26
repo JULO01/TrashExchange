@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { ModalController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -16,8 +17,10 @@ export class ModalPage implements OnInit {
   tags=[];
 
 
-  constructor(private modalController: ModalController,private appService:AppService) { 
-
+  constructor(private modalController: ModalController,private appService:AppService, private auth:AngularFireAuth) { 
+    this.auth.user.subscribe(user => {
+      this.name = user.uid;
+    })
   }
 
   ngOnInit() {
@@ -39,14 +42,14 @@ export class ModalPage implements OnInit {
     if(this.title!= "" && this.description != ""){
       var url;
       if(this.file!=null){
-          url = await this.appService.addImage(this.file);
+          //url = await this.appService.addImage(this.file);
           console.log("yes");
           this.appService.addAngebote(this.name,this.title,this.description,this.location, url,this.tags);
           this.dismissModal();
           }
            
         
-      
+      }
       else{
          url = "";
         console.log("NO");
@@ -55,7 +58,7 @@ export class ModalPage implements OnInit {
       
       }
     }
-  }
+  
 
   
   
