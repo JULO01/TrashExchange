@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, IonSelect } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { alertController } from '@ionic/core';
@@ -17,6 +17,8 @@ export class Tab1Page {
 
 
   items: Observable <any>;
+
+  filtereditems= new Array();
   userid = 4;
   
   //debug
@@ -26,8 +28,19 @@ export class Tab1Page {
 
   constructor(private firestore:AngularFirestore) {
     this.items = firestore.collection('angebote').valueChanges();
+    this.items.subscribe(items => {
+      for(let item of items){
+        
+          this.filtereditems.push(item);
+          
+        
+      }
+      
+  });
+
     
     this.data;
+    
 
     this.items.subscribe(res => {
       this.data = res[0].ort;
@@ -39,7 +52,50 @@ export class Tab1Page {
     this.userid = null ;
   }
 
+  @ViewChild('mySelect',{static:false}) selectRef:IonSelect;
+  openSelect(){
+    this.selectRef.open();
+  }
 
+  searchChanged(e){
+      console.log(e.detail.value);
+      this.filtereditems= new Array();
+      console.log(e.detail.value);
+      this.items.subscribe(items => {
+          for(let item of items){
+            
+            if(item.titel.includes(e.detail.value)){
+              this.filtereditems.push(item);
+            }
+              
+            
+          }
+          
+      })
+
+
+  }
+
+
+  filterChanged(e){
+    //this.filtereditems = this.items;
+    this.filtereditems= new Array();
+    
+    this.items.subscribe(items => {
+        for(let item of items){
+          
+          if(e.detail.value.every(v=> item.tags.includes(v))){
+            this.filtereditems.push(item);
+            
+          }
+            
+           
+        }
+        
+    })
+
+    
+  }
 
 
   changeState(item){ 

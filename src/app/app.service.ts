@@ -12,7 +12,7 @@ export class AppService {
   constructor(private firestore: AngularFirestore, private storage:AngularFireStorage) {
     this.items = firestore.collection('angebote').valueChanges();
   } 
-  public addAngebote(usertmp:String,titeltmp:String, beschreibungtmp:String, orttmp:String, url:String){
+  public addAngebote(usertmp:String,titeltmp:String, beschreibungtmp:String, orttmp:String, url:String,tags:String[]){
     const id = this.firestore.createId();
     const time = new Date().getTime();
     return this.firestore.doc(`angebote/${id}`).set({
@@ -23,7 +23,8 @@ export class AppService {
       ort:orttmp,
       zeit:time,
       url:url,
-      likes: []
+      likes: [],
+      tags:tags
     });
     
    

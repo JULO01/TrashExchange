@@ -13,6 +13,7 @@ export class ModalPage implements OnInit {
   title="";
   description="";
   location="Not yet implemented";
+  tags=[];
 
 
   constructor(private modalController: ModalController,private appService:AppService) { 
@@ -27,6 +28,9 @@ export class ModalPage implements OnInit {
   async dismissModal(){
     this.modalController.dismiss();
   }
+  async filterChanged(e){
+    this.tags=e.detail.value
+  }
 
 
   file = null;
@@ -37,7 +41,7 @@ export class ModalPage implements OnInit {
       if(this.file!=null){
           url = await this.appService.addImage(this.file);
           console.log("yes");
-          this.appService.addAngebote(this.name,this.title,this.description,this.location, url);
+          this.appService.addAngebote(this.name,this.title,this.description,this.location, url,this.tags);
           this.dismissModal();
           }
            
@@ -46,7 +50,7 @@ export class ModalPage implements OnInit {
       else{
          url = "";
         console.log("NO");
-        this.appService.addAngebote(this.name,this.title,this.description,this.location, url)
+        this.appService.addAngebote(this.name,this.title,this.description,this.location, url,this.tags)
         this.dismissModal();
       
       }

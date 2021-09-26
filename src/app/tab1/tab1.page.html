@@ -8,13 +8,21 @@
 
 <ion-content>
   <div style="display: flex;">
-  <ion-searchbar ></ion-searchbar>
-  <ion-button style="padding-top: 4px; padding-right: 8px;"></ion-button>
+  <ion-searchbar (ionChange)="searchChanged($event)" ></ion-searchbar>
+  <ion-button  (click)="openSelect()" style="padding-top: 4px; padding-bottom: 4px; padding-right: 8px; height:auto;">
+    <ion-icon name="funnel-outline"></ion-icon>
+    <ion-select (ionChange)="filterChanged($event)" multiple=true style="display:none;" #mySelect>
+      <ion-select-option>Tag1</ion-select-option>
+      <ion-select-option>Tag2</ion-select-option>
+      <ion-select-option>Geschwister</ion-select-option>
+      <ion-select-option>Lebensmittel</ion-select-option>
+    </ion-select>
+  </ion-button>
   </div>
   <hr>
   <ion-list>
 
-    <ion-card *ngFor ="let item of items | async">
+    <ion-card *ngFor ="let item of filtereditems">
       <ion-card-header>
         <ion-card-subtitle>{{item.ort}} | {{item.userid}}</ion-card-subtitle>
         <ion-card-title> {{item.titel}} 
@@ -25,12 +33,16 @@
           
         </ion-card-title>
         
-        
-        <ion-img *ngIf="item.url!=''" src={{item.url}} style="width:50%;float:left;margin:1vh;margin-left: 0;" ></ion-img>
+        <div style="display:flex;">
+        <ion-img *ngIf="item.url!=''" src={{item.url}} style="width:50%;margin:1vh;margin-left: 0;" ></ion-img>
         
        
-        <div style="loat: left;;vertical-align: top; margin:1vh; margin-left:0;"> {{item.beschreibung}} </div>
-        
+        <div style="vertical-align: top; margin:1vh; margin-left:1vh;"> {{item.beschreibung}} 
+          <br>
+          
+        <ion-chip *ngFor="let tag of item.tags">{{tag}}</ion-chip>
+        </div>
+        </div>
         
       </ion-card-header> 
     </ion-card>
