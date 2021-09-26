@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { ModalController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { timeStamp } from 'console';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ModalPage implements OnInit {
   name="Jan";
   title="";
   description="";
-  location="Not yet implemented";
+  location="Paderborn";
   tags=[];
 
 
@@ -35,8 +36,8 @@ export class ModalPage implements OnInit {
     this.tags=e.detail.value
   }
 
-
-  file = null;
+  file =null;
+  
   async save(){
     console.log("save");
     if(this.title!= "" && this.description != ""){
@@ -46,6 +47,7 @@ export class ModalPage implements OnInit {
           console.log("yes");
           this.appService.addAngebote(this.name,this.title,this.description,this.location, url,this.tags);
           this.dismissModal();
+          this.file = null;
           }
            
         
