@@ -2,8 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { alertController, popoverController } from '@ionic/core';
 import { UpdateBuffer } from '@angular-devkit/schematics/src/utility/update-buffer';
+import { alertController } from '@ionic/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class Tab1Page {
 
 
   items: Observable <any>;
+  emails = new Map();
   userid = "4";
   
   //debug
@@ -25,17 +27,28 @@ export class Tab1Page {
 
   heartName = "heart-outline";
 
-  constructor(private firestore:AngularFirestore) {
+  constructor(private firestore:AngularFirestore, private auth:AngularFireAuth) {
+    this.auth.user.subscribe(user => {
     this.items = firestore.collection('angebote').valueChanges();
+    var em = firestore.collection("/users").valueChanges();
+    em.subscribe(res => {
+      for(var i = 0; i < res.length; i++) {
+        this.emails.set(res[i]["id"], res[i]["email"]);
+      }
+    })
     
-    this.data;
+    this.userid = user.uid ;
 
     this.items.subscribe(res => {
-      this.data = res[0].ort;
+      for(var i=0; i<res.length; i++) {
+        this.data = res[i].ort;
+      }
 
     })
     
     
+    
+    })
   }
 
 

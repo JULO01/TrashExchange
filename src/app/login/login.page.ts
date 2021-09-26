@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { RegisterPage } from '../register/register.page';
 import { modalController } from '@ionic/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(public modalController: ModalController, public auth: AngularFireAuth) { }
+  constructor(public modalController: ModalController, public auth: AngularFireAuth, public firebase: AngularFirestore) { }
 
   ngOnInit() {
   }
@@ -34,11 +35,17 @@ export class LoginPage implements OnInit {
   
   };
 
+  create_user(uid, mail) {
+    this.firebase.collection("/users").doc(uid).set(
+      {id: uid, email: mail}
+    )
+  }
 
   signinGoogle() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then((userCredential) => {
       // Signed in 
+      this.create_user(userCredential.user.uid, userCredential.user["email"])
       const user = userCredential.user;
       this.closeModal();
       // ...
