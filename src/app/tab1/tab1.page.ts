@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { alertController } from '@ionic/core';
+import { alertController, popoverController } from '@ionic/core';
+import { UpdateBuffer } from '@angular-devkit/schematics/src/utility/update-buffer';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class Tab1Page {
 
 
   items: Observable <any>;
-  userid = 4;
+  userid = "4";
   
   //debug
   data: { id: string; titel: string;}[];
@@ -31,31 +32,55 @@ export class Tab1Page {
 
     this.items.subscribe(res => {
       this.data = res[0].ort;
-      console.log(this.data)
 
     })
     
     
-    this.userid = null ;
   }
 
 
 
-
-  changeState(item){ 
+  checkFavorite(item){
     
-    if (item.liked){
-      item.liked = false;
+    
+    if (typeof(item.likes)== "undefined") {
+      return "heart-outline"
     }
+
+    
+
+    if(item.likes.includes(this.userid)){
+      
+      return "heart"
+    }
+
     else{
-      item.liked = true;
+      return "heart-outline"
     }
-    
-    console.log(item.liked);
-    this.firestore.collection('angebote').doc(item.id).update(item);
+
   }
 
+  changeHeartState(item){
+    var dc = this.firestore.collection('/angebote').doc(item.id);
+    dc.ref.get()
+    .then(doc => {
+      var likeArray = doc.data()["likes"]
 
+      if(likeArray.includes(this.userid)){
+        const index = likeArray.indexOf(this.userid);
+        likeArray.splice(index, 1)
+      }
+
+      else{
+        likeArray.push(this.userid)
+      }
+
+      this.firestore.collection('/angebote').doc(item.id).update({likes:likeArray})
+    })
+
+
+  }
 
 
 }
+
