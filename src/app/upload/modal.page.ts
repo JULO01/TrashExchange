@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { ModalController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -15,8 +16,10 @@ export class ModalPage implements OnInit {
   location="Not yet implemented";
 
 
-  constructor(private modalController: ModalController,private appService:AppService) { 
-
+  constructor(private modalController: ModalController,private appService:AppService, private auth:AngularFireAuth) { 
+    this.auth.user.subscribe(user => {
+      this.name = user.uid;
+    })
   }
 
   ngOnInit() {
