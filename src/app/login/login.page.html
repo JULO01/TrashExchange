@@ -5,33 +5,5 @@
 </ion-header>
 
 <ion-content>
-  <div class="row">
-    <div class="col center-text">
-      <ion-button (click)="signinGoogle()">Sign in with Google</ion-button>
-    </div>
-  </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div class="row">
-    <div class="col center-text">
-      <ion-button (click)="signin()">Login</ion-button>
-    </div>
-    <div class="col center-text">
-      <span>No account? <a (click)="register()">Register</a></span>
-    </div>
-  </div>
+  <ion-button (click)="close()">Login</ion-button> 
 </ion-content>
