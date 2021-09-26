@@ -7,11 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <div style="display: flex;">
-  <ion-searchbar ></ion-searchbar>
-  <ion-button style="padding-top: 4px; padding-right: 8px;"></ion-button>
-  </div>
-  <hr>
+  
   <ion-list>
   <div *ngFor ="let item of items | async">
     <ion-card *ngIf="item.userid != userid">
@@ -20,11 +16,9 @@
         <ion-card-subtitle>{{item.ort}} | {{emails.get(item.userid)}}</ion-card-subtitle>
 
         <ion-card-title> {{item.titel}} 
-          <ion-button (click) = "changeState(item)" fill = "clear" style="float: right;">
-            <ion-icon *ngIf="item.liked" style="float: right; vertical-align: top;" name="heart"></ion-icon> 
-            <ion-icon *ngIf="!item.liked" style="float: right; vertical-align: top;" name="heart-outline"></ion-icon>
+          <ion-button (click) = "changeHeartState(item)" fill = "clear" style="float: right;">
+            <ion-icon style="float: right; vertical-align: top;" [name]="checkFavorite(item)"></ion-icon> 
           </ion-button>
-          
         </ion-card-title>
         
         

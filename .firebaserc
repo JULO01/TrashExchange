@@ -8,6 +8,8 @@
         ]
       }
     }
+  },
+  "projects": {
+    "default": "trashxchange-test"
   }
 }
-

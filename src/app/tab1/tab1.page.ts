@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { UpdateBuffer } from '@angular-devkit/schematics/src/utility/update-buffer';
 import { alertController } from '@ionic/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -52,21 +53,47 @@ export class Tab1Page {
 
 
 
+  checkFavorite(item){
+    
+    
+    if (typeof(item.likes)== "undefined") {
+      return "heart-outline"
+    }
 
-  changeState(item){ 
     
-    if (item.liked){
-      item.liked = false;
+
+    if(item.likes.includes(this.userid)){
+      
+      return "heart"
     }
+
     else{
-      item.liked = true;
+      return "heart-outline"
     }
-    
-    console.log(item.liked);
-    this.firestore.collection('angebote').doc(item.id).update(item);
+
+  }
+
+  changeHeartState(item){
+    var dc = this.firestore.collection('/angebote').doc(item.id);
+    dc.ref.get()
+    .then(doc => {
+      var likeArray = doc.data()["likes"]
+
+      if(likeArray.includes(this.userid)){
+        const index = likeArray.indexOf(this.userid);
+        likeArray.splice(index, 1)
+      }
+
+      else{
+        likeArray.push(this.userid)
+      }
+
+      this.firestore.collection('/angebote').doc(item.id).update({likes:likeArray})
+    })
+
+
   }
 
 
-
-
 }
+
