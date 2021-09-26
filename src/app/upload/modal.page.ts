@@ -42,14 +42,14 @@ export class ModalPage implements OnInit {
     if(this.title!= "" && this.description != ""){
       var url;
       if(this.file!=null){
-          //url = await this.appService.addImage(this.file);
+          url = await this.appService.addImage(this.file);
           console.log("yes");
           this.appService.addAngebote(this.name,this.title,this.description,this.location, url,this.tags);
           this.dismissModal();
           }
            
         
-      }
+      
       else{
          url = "";
         console.log("NO");
@@ -58,6 +58,7 @@ export class ModalPage implements OnInit {
       
       }
     }
+  }
   
 
   

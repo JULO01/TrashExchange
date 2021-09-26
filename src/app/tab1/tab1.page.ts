@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UpdateBuffer } from '@angular-devkit/schematics/src/utility/update-buffer';
 import { alertController } from '@ionic/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ThisReceiver } from '@angular/compiler';
 
 
 @Component({
@@ -34,13 +35,24 @@ export class Tab1Page {
     this.auth.user.subscribe(user => {
     this.items = firestore.collection('angebote').valueChanges();
     this.items.subscribe(items => {
+      
       for(let item of items){
-        
-          this.filtereditems.push(item);
           
+          var found = false;
+          for(let existingitem of this.filtereditems){
+            if(item.id == existingitem.id){
+              existingitem.likes = item.likes;
+              found = true;
+            }
+          }
+          if(!found){
+            this.filtereditems.push(item);
+          }
+         
+
       }
       
-  });
+    });
 
     
     this.data;
@@ -72,7 +84,7 @@ export class Tab1Page {
   }
 
   searchChanged(e){
-      console.log(e.detail.value);
+      
       this.filtereditems= new Array();
       console.log(e.detail.value);
       this.items.subscribe(items => {
@@ -80,6 +92,7 @@ export class Tab1Page {
             
             if(item.titel.includes(e.detail.value)){
               this.filtereditems.push(item);
+              console.log("add item 2");
             }
               
             
@@ -92,7 +105,7 @@ export class Tab1Page {
 
 
   filterChanged(e){
-    //this.filtereditems = this.items;
+    
     this.filtereditems= new Array();
     
     this.items.subscribe(items => {
@@ -100,6 +113,7 @@ export class Tab1Page {
           
           if(e.detail.value.every(v=> item.tags.includes(v))){
             this.filtereditems.push(item);
+            console.log("add item 3");
             
           }
             
@@ -132,6 +146,7 @@ export class Tab1Page {
   }
 
   changeHeartState(item){
+    console.log(this.filtereditems);
     var dc = this.firestore.collection('/angebote').doc(item.id);
     dc.ref.get()
     .then(doc => {
