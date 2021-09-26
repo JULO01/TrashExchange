@@ -7,31 +7,18 @@
 </ion-header>
 
 <ion-content>
-  <div style="display: flex;">
-  <ion-searchbar ></ion-searchbar>
-  <ion-button style="padding-top: 4px; padding-right: 8px;"></ion-button>
-  </div>
-  <hr>
+  
   <ion-list>
 
     <ion-card *ngFor ="let item of items | async">
       <ion-card-header>
-        <ion-card-subtitle>{{item.ort}} | {{item.userid}}</ion-card-subtitle>
+        <ion-card-subtitle>{{item.ort}}</ion-card-subtitle>
         <ion-card-title> {{item.titel}} 
           <ion-button (click) = "changeState(item)" fill = "clear" style="float: right;">
             <ion-icon *ngIf="item.liked" style="float: right; vertical-align: top;" name="heart"></ion-icon> 
             <ion-icon *ngIf="!item.liked" style="float: right; vertical-align: top;" name="heart-outline"></ion-icon>
           </ion-button>
-          
         </ion-card-title>
-        
-        
-        <ion-img *ngIf="item.url!=''" src={{item.url}} style="width:50%;float:left;margin:1vh;margin-left: 0;" ></ion-img>
-        
-       
-        <div style="loat: left;;vertical-align: top; margin:1vh; margin-left:0;"> {{item.beschreibung}} </div>
-        
-        
       </ion-card-header> 
     </ion-card>
 
