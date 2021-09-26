@@ -28,5 +28,8 @@ export class Tab3Page {
     });
   }
 
+  logout() {
+    this.auth.signOut();
+  }
   
 }

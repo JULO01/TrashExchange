@@ -18,6 +18,7 @@ export class Tab1Page {
 
 
   items: Observable <any>;
+  emails = new Map();
   userid = "4";
   
   //debug
@@ -27,16 +28,19 @@ export class Tab1Page {
 
   constructor(private firestore:AngularFirestore, private auth:AngularFireAuth) {
     this.auth.user.subscribe(user => {
-      this.items = firestore.collection('angebote').valueChanges();
+    this.items = firestore.collection('angebote').valueChanges();
+    var em = firestore.collection("/users").valueChanges();
+    em.subscribe(res => {
+      for(var i = 0; i < res.length; i++) {
+        this.emails.set(res[i]["id"], res[i]["email"]);
+      }
+    })
     
-    this.data;
     this.userid = user.uid ;
 
     this.items.subscribe(res => {
       for(var i=0; i<res.length; i++) {
-        console.log(res[i].userid)
         this.data = res[i].ort;
-        console.log(this.data)
       }
 
     })

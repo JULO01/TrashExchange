@@ -17,7 +17,7 @@
     <ion-card *ngIf="item.userid != userid">
       <ion-card-header>
 
-        <ion-card-subtitle>{{item.ort}} | {{item.userid}}</ion-card-subtitle>
+        <ion-card-subtitle>{{item.ort}} | {{emails.get(item.userid)}}</ion-card-subtitle>
 
         <ion-card-title> {{item.titel}} 
           <ion-button (click) = "changeState(item)" fill = "clear" style="float: right;">
@@ -31,7 +31,7 @@
         <ion-img *ngIf="item.url!=''" src={{item.url}} style="width:50%;float:left;margin:1vh;margin-left: 0;" ></ion-img>
         
        
-        <div style="loat: left;;vertical-align: top; margin:1vh; margin-left:0;"> {{item.beschreibung}} </div>
+        <div style="float: left;;vertical-align: top; margin:1vh; margin-left:0;"> {{item.beschreibung}} </div>
         
         
       </ion-card-header> 
