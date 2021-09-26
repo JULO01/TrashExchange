@@ -42,7 +42,7 @@ export class ModalPage implements OnInit {
           }
            
         
-      }
+      
       else{
          url = "";
         console.log("NO");
@@ -51,7 +51,7 @@ export class ModalPage implements OnInit {
       
       }
     }
-  
+  }
 
   
   
