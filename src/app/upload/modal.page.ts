@@ -12,7 +12,7 @@ export class ModalPage implements OnInit {
   name="Jan";
   title="";
   description="";
-  location="Not yet implemented";
+  location="Paderborn";
 
 
   constructor(private modalController: ModalController,private appService:AppService) { 
@@ -31,7 +31,7 @@ export class ModalPage implements OnInit {
 
   file = null;
   async save(){
-    console.log("save");
+    console.log(this.file);
     if(this.title!= "" && this.description != ""){
       var url;
       if(this.file!=null){
@@ -42,7 +42,7 @@ export class ModalPage implements OnInit {
           }
            
         
-      }
+      
       else{
          url = "";
         console.log("NO");
@@ -51,6 +51,7 @@ export class ModalPage implements OnInit {
       
       }
     }
+  }
   
 
   
